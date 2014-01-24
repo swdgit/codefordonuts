@@ -27,6 +27,8 @@ public class SpiralNumbers {
     public SpiralNumbers(Integer spiralNumber) {
 
         // determine the corner values as the spiral progresses away from zero.
+        // chose to go south east on the number selection
+        // leverage these corners to fill out the array
         ArrayList<Integer> corners = new ArrayList<Integer>();
         
         int corner = -1;
@@ -37,18 +39,14 @@ public class SpiralNumbers {
             corner += 2;
         }
 
+        // what numbers we'll be using
+        System.out.println("SE corners :: ");
         for (Integer integer : corners) {
             System.out.print(" " + integer.toString());
         }
 
-        // leverage these corners to fill out the array
-        
+        // spacer
         System.out.println("");
-        
-        
-        
-        
-        
         
         // how many rows and columns will I need.
         // square root of the spiralNumber gets us close
@@ -56,7 +54,8 @@ public class SpiralNumbers {
         
         // push the number up to the next integer so the grid is big enough
         int xy = (int)Math.ceil(sqr);
-        xy += 3; // giving the grid some wiggle room here. couple of issues with the start point and final grid size.
+        // giving the grid some wiggle room here. couple of issues with the start point and final grid size.
+        xy += 3; 
         
         System.out.println("grid size : " + xy + " : " + xy);
         String rowsAndColumns[][] = new String[xy][xy];
@@ -98,8 +97,6 @@ public class SpiralNumbers {
                     // location, location, location...
                     // I know what my starting point is. 
                     // I need to cycle around that till I fill in all the numbers for this corner
-                    //
-                    System.out.print(a + " ");
     
                     // need to set position of row and col here as we cycle backwards
                     // to the lastCorner.
@@ -109,6 +106,9 @@ public class SpiralNumbers {
                         rowsAndColumns[row][col] = "";                       
                     }
                     
+                    /*The process is to run the spiral backwards here supplying the next range of numbers
+                     * up, back, down, forward from the corner as a starting point back to the same corner.
+                     */
                     if (rowUp) {
                         row--;
                         if (currentSegment <= segmentLeg) {
@@ -177,7 +177,6 @@ public class SpiralNumbers {
                 row = start;
                 col = start;
 
-                System.out.println(" segment :  " + segment);
             }
         } catch (Exception e) {
             System.out.println("Wa Happen :: " + e.getMessage());
