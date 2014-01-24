@@ -56,13 +56,18 @@ public class SpiralNumbers {
         
         // push the number up to the next integer so the grid is big enough
         int xy = (int)Math.ceil(sqr);
-        if ((xy % 2) == 0) {
-            xy++;
-        }
+        xy += 3; // giving the grid some wiggle room here. couple of issues with the start point and final grid size.
         
-              
         System.out.println("grid size : " + xy + " : " + xy);
         String rowsAndColumns[][] = new String[xy][xy];
+
+        // hard init for the array so we don't get null displays.
+        for (int r = 0; r < xy; r++) {
+            for (int c = 0; c < xy; c++) {
+                rowsAndColumns[r][c] = "";
+            }
+        }
+        
         
         // start point is zero based on the array.
         int start = Math.round(xy/2) - 1; 
@@ -111,6 +116,9 @@ public class SpiralNumbers {
                             colBack = true;
                             
                             currentSegment = segment;
+                            if (segment >= 7) {
+                                currentSegment = segment - 1;
+                            }
                             segmentLeg = 1;
                             continue;
                         }
@@ -124,6 +132,10 @@ public class SpiralNumbers {
                             rowDown = true;
 
                             currentSegment = segment - 1;
+                            if (segment >= 7) {
+                                currentSegment = segment - 2;
+                            }
+
                             segmentLeg = 1;
                             continue;
                         }
@@ -156,6 +168,9 @@ public class SpiralNumbers {
                     segmentLeg++;
                 }
                 segment += 2;
+                if (segment >= 7) {
+                    segment++;
+                }
                 currentSegment = segment;
                 lastCorner = c.intValue();
                 start++;
@@ -167,19 +182,7 @@ public class SpiralNumbers {
         } catch (Exception e) {
             System.out.println("Wa Happen :: " + e.getMessage());
         }
-        
-//        int r = 0;
-//        int c = 0;
-//        for (int i = 0; i <= spiralNumber; i++) {
-//            rowsAndColumns[r][c] = String.valueOf(i);
-//            
-//            start++;
-//        }
-                
-        // top left bottom and right are the min and max of rows from 0 to xy.        
-        // 
-        
-        // 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+
         // ok done with the spiral and we can print it out.
         for (int r = 0; r < xy; r++) {
             for (int c = 0; c < xy; c++) {
